@@ -1,4 +1,4 @@
-import { Heart, HeartFill, Search, Trash } from 'lucide-react';
+import { Heart, HeartOff, Search, Trash } from 'lucide-react';
 import { useState } from 'react';
 
 export default function TableauStylé() {
@@ -154,7 +154,7 @@ const moyenne = tableauFiltré.length === 0
                         onClick={() => GestionFavoris(eleve.id)} 
                         className="text-red-500 hover:text-red-700"
                       >
-                        {favoris.includes(eleve.id) ? <HeartFill /> : <Heart />}
+                        {favoris.includes(eleve.id) ? <Heart /> : <HeartOff />}
                       </button>
                   </div>
                 </td>
