@@ -17,6 +17,7 @@ export default function TableauStylé() {
   const [recherche, setRecherche] = useState('');
   const [tableau, setTableau] = useState<Tableau[]>([]);
   const [favoris, setFavoris] = useState<number[]>([]);
+  const [filtreActif, setFiltreActif] = useState(false);
 
   const AjouterElement = () => {
   
@@ -30,9 +31,13 @@ export default function TableauStylé() {
     }
   };
 
-  const tableauFiltré = tableau.filter((eleve) => 
-    eleve.prenom.toLowerCase().includes(recherche.toLowerCase())
-  );
+  const tableauFiltré = tableau.filter((eleve) => {
+    const correspondanceRecherche = eleve.prenom.toLowerCase().includes(recherche.toLowerCase());
+    if (filtreActif) {
+      return correspondanceRecherche && eleve.note > 15;
+    }
+    return correspondanceRecherche;
+  });
 
   const total = tableauFiltré.length === 0 
   ? "Pas de note disponible" 
@@ -93,13 +98,21 @@ const moyenne = tableauFiltré.length === 0
 
 
       <div className="flex justify-end mb-6">
-        <button 
-          onClick={AjouterElement} 
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          Ajouter
-        </button>
-      </div>
+  <button 
+    onClick={AjouterElement} 
+    className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors mr-2"
+  >
+    Ajouter
+  </button>
+  <button 
+    onClick={() => setFiltreActif(!filtreActif)} 
+    className={`${
+      filtreActif ? 'bg-green-500' : 'bg-gray-500'
+    } text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors`}
+  >
+    {filtreActif ? 'Désactiver le filtre' : 'Filtrer les notes > 15'}
+  </button>
+</div>
 
 
       <div className="relative mb-6">
