@@ -16,45 +16,52 @@ export default function TableauStylé() {
   const [prenom, setPrenom] = useState('');
   const [recherche, setRecherche] = useState('');
   const [tableau, setTableau] = useState<Tableau[]>([]);
-
-  const tableauFiltré = tableau.filter((eleve) => 
-    eleve.prenom.toLowerCase().includes(recherche.toLowerCase())
-  );
-
-  const total = tableauFiltré.length === 0 
-    ? "Pas de note disponible" 
-    : tableauFiltré.reduce((acc, element) => acc + element.note, 0);
-    
- 
-  const moyenne = tableauFiltré.length === 0 
-    ? "Pas de note disponible" 
-    : Number(total) / tableauFiltré.length;
-
+  const [favoris, setFavoris] = useState<number[]>([]);
 
   const AjouterElement = () => {
   
     if (prenom.trim() !== "" && age && note) {
-   
       const id = tableau.length + 1;
       const nouvelelement = { id: id, prenom: prenom, age: age, note: note };
-    
       setTableau([...tableau, nouvelelement]);
-   
       setAge(0);
       setNote(0);
       setPrenom('');
     }
   };
 
+  const tableauFiltré = tableau.filter((eleve) => 
+    eleve.prenom.toLowerCase().includes(recherche.toLowerCase())
+  );
+
+  const total = tableauFiltré.length === 0 
+  ? "Pas de note disponible" 
+  : tableauFiltré.reduce((acc, element) => acc + element.note, 0);
+  
+
+const moyenne = tableauFiltré.length === 0 
+  ? "Pas de note disponible" 
+  : Number(total) / tableauFiltré.length;
 
   const supprimer = (tableauid: number) => {
     setTableau(tableau.filter((tab) => tab.id !== tableauid));
   };
 
+  const GestionFavoris = (id: number) => {
+    if (favoris.includes(id)) {
+      
+      setFavoris(favoris.filter((favoriId) => favoriId !== id))  }
+      
+      else { setFavoris([...favoris, id])  }
+  };
+
+  const nombrefavoris = favoris.length === 0 ? "" : favoris.length
+
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Gestion des Notes</h1>
+        <p>{nombrefavoris}</p>
       </div>
 
 
@@ -142,7 +149,7 @@ export default function TableauStylé() {
                       <Trash className="w-5 h-5" />
                     </button>
                     <button 
-                      onClick={() => supprimer(eleve.id)} 
+                     onClick={() => GestionFavoris(eleve.id)}
                       className="text-red-500 hover:text-red-700"
                     >
                       <Heart className="w-5 h-5" />
