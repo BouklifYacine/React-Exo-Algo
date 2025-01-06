@@ -1,4 +1,4 @@
-import { Heart, Search, Trash } from 'lucide-react';
+import { Heart, HeartFill, Search, Trash } from 'lucide-react';
 import { useState } from 'react';
 
 export default function TableauStylé() {
@@ -151,11 +151,11 @@ const moyenne = tableauFiltré.length === 0
                       <Trash className="w-5 h-5" />
                     </button>
                     <button 
-                     onClick={() => GestionFavoris(eleve.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <Heart className="w-5 h-5" />
-                    </button>
+                        onClick={() => GestionFavoris(eleve.id)} 
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        {favoris.includes(eleve.id) ? <HeartFill /> : <Heart />}
+                      </button>
                   </div>
                 </td>
               </tr>
