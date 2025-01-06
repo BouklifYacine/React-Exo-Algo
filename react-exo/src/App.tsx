@@ -62,7 +62,8 @@ const moyenne = tableauFiltré.length === 0
     <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Gestion des Notes</h1>
-        <p>{nombrefavoris}</p>
+       
+         {nombrefavoris &&  <p> Favoris : {nombrefavoris} </p>}
       </div>
 
 
