@@ -34,7 +34,7 @@ export default function TableauStylé() {
   const tableauFiltré = tableau.filter((eleve) => {
     const correspondanceRecherche = eleve.prenom.toLowerCase().includes(recherche.toLowerCase());
     if (filtreActif) {
-      return correspondanceRecherche && eleve.note > 15;
+      return correspondanceRecherche && eleve.note >= 15;
     }
     return correspondanceRecherche;
   });
@@ -53,7 +53,7 @@ const moyenne = tableauFiltré.length === 0
     setFavoris(favoris.filter((favoriId) => favoriId !== tableauid));
   };
 
-  const GestionFavoris = (id: number) => {
+  const AjouterFavoris = (id: number) => {
     if (favoris.includes(id)) {
       
       setFavoris(favoris.filter((favoriId) => favoriId !== id))  }
@@ -97,7 +97,7 @@ const moyenne = tableauFiltré.length === 0
       </div>
 
 
-      <div className="flex justify-end mb-6">
+     <div className="flex justify-end mb-6">
   <button 
     onClick={AjouterElement} 
     className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors mr-2"
@@ -164,7 +164,7 @@ const moyenne = tableauFiltré.length === 0
                       <Trash className="w-5 h-5" />
                     </button>
                     <button 
-                        onClick={() => GestionFavoris(eleve.id)} 
+                        onClick={() => AjouterFavoris(eleve.id)} 
                         className="text-red-500 hover:text-red-700"
                       >
                         {favoris.includes(eleve.id) ? <Heart /> : <HeartOff />}
