@@ -45,6 +45,7 @@ const moyenne = tableauFiltré.length === 0
 
   const supprimer = (tableauid: number) => {
     setTableau(tableau.filter((tab) => tab.id !== tableauid));
+    setFavoris(favoris.filter((favoriId) => favoriId !== tableauid));
   };
 
   const GestionFavoris = (id: number) => {
